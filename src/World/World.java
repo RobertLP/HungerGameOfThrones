@@ -1,36 +1,55 @@
 package World;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
+import World.Civilization.District;
 import World.Games.Game;
 import World.Games.GameController;
 
-public class World {
-    public static final float interfallTime = 0.00002f; // placeholder for real fps
-    public static final float dayInterval = 10f; // time in seconds
+public class World
+{
+    // singleton implementation
+    private static World instance;
+    private World(){}
+    public static synchronized World getInstance()
+    {
+        if(instance == null)
+            instance = new World();
+        return instance;
+    }
+    // end
 
-    public GameController gameController = new GameController();
+    public static final int DISTRICT_COUNT = 7;
+    private static final Random random = new Random();
+
+    private enum TimeSpecification{ DAY_TIME, NIGHT_TIME };
+    private TimeSpecification timeSpecification;
+
+    private GameController gameController = new GameController();
+    private List<District> districts = new ArrayList<District>();
+
     public void start()
     {
         gameController.newGame();
-        run();
+        createDistricts(DISTRICT_COUNT);
     }
 
-    private void run()
+    private void createDistricts(int amount)
     {
-        float intervalTimer = 0f;
-        long last_time = System.nanoTime();
-        while(gameController.isActive())
-        {
-            long time = System.nanoTime();
-            int delta_time = (int) ((time - last_time) / 1000000);
-            last_time = time;
-
-            gameController.nextEvent();
-            while(intervalTimer < World.dayInterval)
-            {
-                intervalTimer += interfallTime;
-            }
-            System.out.println(intervalTimer);
-            intervalTimer = 0;
-        }
+        for(int i = 0; i < amount; i++)
+            districts.add((new District(i)));
     }
+
+    public District getDistrict(int districtNr)
+    {
+        return districts.get(districtNr);
+    }
+
+    public static int getRandomInt(int min, int max)
+    {
+        int random = World.random.nextInt(min + max);
+        return random + min > min ? random - min : min;
+    }
+
 }
