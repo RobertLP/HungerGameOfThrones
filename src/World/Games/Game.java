@@ -24,4 +24,9 @@ public class Game
         for(int i = 0; i < amount; i++)
             players.add(new Human(Gender.values()[World.getRandomInt(0,1)], role));
     }
+
+    public List<Human> getPlayers()
+    {
+        return players;
+    }
 }

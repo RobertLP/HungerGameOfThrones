@@ -3,9 +3,9 @@ package World.Civilization;
 public enum Gender { MALE, FEMALE;
 
     public enum StatModifier{ STRENGTH, AGILITY, LUCK, INTELLECT }
-    public float getModifier(Gender gender, StatModifier statModifier)
+    public float getModifier(StatModifier statModifier)
     {
-        switch (gender)
+        switch (this)
         {
             default:
             case MALE:
