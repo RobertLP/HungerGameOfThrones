@@ -36,14 +36,14 @@ public class World
 
     private boolean active = true;
 
-    public enum PrintOutOption{TYPE, VALUE}
+    public enum PrintOutOption{TYPE, VALUE, SYMBOL, EFFICIENCY}
 
     public void start()
     {
         createDistricts(DISTRICT_COUNT);
         gameController.newGame();
         populateWorldMap();
-        printOutWorldMap(PrintOutOption.TYPE);
+        printOutWorldMap(PrintOutOption.SYMBOL);
         run();
     }
 
@@ -79,6 +79,12 @@ public class World
                     case TYPE:
                         ln += printOutType(x, y);
                         break;
+                    case SYMBOL:
+                        ln += printOutSymbol(x, y);
+                        break;
+                    case EFFICIENCY:
+                        ln += printOutEfficiency(x, y);
+                        break;
                 }
             }
             System.out.println(ln);
@@ -94,6 +100,16 @@ public class World
     private String printOutType(int x, int y)
     {
        return worldMap[x][y].getType().getShortHand() + " ";
+    }
+
+    private String printOutSymbol(int x, int y)
+    {
+        return worldMap[x][y].getType().getSymbol() + " ";
+    }
+
+    private String printOutEfficiency(int x, int y)
+    {
+        return worldMap[x][y].getType().getEfficiency() + " ";
     }
 
     private void createDistricts(int amount)

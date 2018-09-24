@@ -72,6 +72,18 @@ public class Human {
         }
     }
 
+    // TODO: Write battle code here
+
+    public void attack(Human target)
+    {
+        // attack
+
+        // receive counterAttack (Other human should defend, maybe other function?)
+
+        // Stay or flee?
+    }
+
+    // TODO: Write craft code here
     public void craft()
     {
         // TODO: Crafting will be attempted here
